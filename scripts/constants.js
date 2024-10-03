@@ -208,6 +208,9 @@ export const CONSTANTS = {
                 ACTOR: 'modules/custom-dnd5e/templates/counters/dnd5e/counters-actor.hbs',
                 ACTOR_LEGACY: 'modules/custom-dnd5e/templates/counters/dnd5e/counters-actor-legacy.hbs',
                 ITEM_GROUP_LEGACY: 'modules/custom-dnd5e/templates/counters/dnd5e/counters-item-group-legacy.hbs'
+            },
+            TIDY5E: {
+                ACTOR_CLASSIC: 'modules/custom-dnd5e/templates/counters/tidy5e/counters-actor-classic.hbs'
             }
         }
     },
@@ -695,8 +698,7 @@ export const SHEET_TYPE = {
     ActorSheet5eCharacter: {
         countersSetting: CONSTANTS.COUNTERS.SETTING.CHARACTER_COUNTERS.KEY,
         character: true,
-        custom: false,
-        group: false,
+        dnd5e: true,
         legacy: true,
         npc: true,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ACTOR_LEGACY,
@@ -707,10 +709,7 @@ export const SHEET_TYPE = {
     },
     ActorSheet5eNPC: {
         countersSetting: CONSTANTS.COUNTERS.SETTING.NPC_COUNTERS.KEY,
-        character: false,
-        custom: false,
-        group: false,
-        item: false,
+        dnd5e: true,
         legacy: true,
         npc: true,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ACTOR_LEGACY,
@@ -722,10 +721,7 @@ export const SHEET_TYPE = {
     ActorSheet5eCharacter2: {
         countersSetting: CONSTANTS.COUNTERS.SETTING.CHARACTER_COUNTERS.KEY,
         character: true,
-        custom: false,
-        group: false,
-        item: false,
-        legacy: false,
+        dnd5e: true,
         npc: true,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ACTOR,
         insert: {
@@ -737,10 +733,7 @@ export const SHEET_TYPE = {
         countersSetting: CONSTANTS.COUNTERS.SETTING.CHARACTER_COUNTERS.KEY,
         character: true,
         custom: true,
-        group: false,
-        item: false,
-        legacy: false,
-        npc: false,
+        dnd5e: true,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ACTOR,
         insert: {
             class: '.tab.details > .right .top',
@@ -749,11 +742,7 @@ export const SHEET_TYPE = {
     },
     ActorSheet5eNPC2: {
         countersSetting: CONSTANTS.COUNTERS.SETTING.NPC_COUNTERS.KEY,
-        character: false,
-        custom: false,
-        group: false,
-        item: false,
-        legacy: false,
+        dnd5e: true,
         npc: true,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ACTOR,
         insert: {
@@ -763,12 +752,9 @@ export const SHEET_TYPE = {
     },
     GroupActorSheet: {
         countersSetting: CONSTANTS.COUNTERS.SETTING.GROUP_COUNTERS.KEY,
-        character: false,
-        custom: false,
+        dnd5e: true,
         group: true,
-        item: false,
         legacy: true,
-        npc: false,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ITEM_GROUP_LEGACY,
         insert: {
             class: 'section.sheet-body',
@@ -777,12 +763,9 @@ export const SHEET_TYPE = {
     },
     ItemSheet5e: {
         countersSetting: CONSTANTS.COUNTERS.SETTING.ITEM_COUNTERS.KEY,
-        character: false,
-        custom: false,
-        group: false,
+        dnd5e: true,
         item: true,
         legacy: true,
-        npc: false,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ITEM_GROUP_LEGACY,
         insert: {
             class: 'section.sheet-body',
@@ -791,15 +774,21 @@ export const SHEET_TYPE = {
     },
     ItemSheet5e2: {
         countersSetting: CONSTANTS.COUNTERS.SETTING.ITEM_COUNTERS.KEY,
-        character: false,
-        custom: false,
-        group: false,
+        dnd5e: true,
         item: true,
-        legacy: false,
-        npc: false,
         template: CONSTANTS.COUNTERS.TEMPLATE.DND5E.ITEM_GROUP_LEGACY,
         insert: {
             class: 'section.sheet-body',
+            position: 'beforeend'
+        }
+    },
+    Tidy5eCharacterSheet: {
+        countersSetting: CONSTANTS.COUNTERS.SETTING.CHARACTER_COUNTERS.KEY,
+        character: true,
+        tidy5e: true,
+        template: CONSTANTS.COUNTERS.TEMPLATE.TIDY5E.ACTOR_CLASSIC,
+        insert: {
+            class: '.attributes .main-panel',
             position: 'beforeend'
         }
     }

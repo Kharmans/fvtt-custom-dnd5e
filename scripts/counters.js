@@ -48,8 +48,9 @@ function registerSettings () {
  * Register hooks
  */
 function registerHooks () {
-    Hooks.on('renderInnerActorSheet', addCounters)
-    Hooks.on('renderInnerItemSheet', addCounters)
+    Hooks.on('renderActorSheet', addCountersDnd5e)
+    Hooks.on('renderItemSheet', addCountersDnd5e)
+    Hooks.on('tidy5e-sheet.renderActorSheet', addCountersTidy5e)
     Hooks.on('preUpdateActor', handlePreUpdateActor)
     Hooks.on('updateActor', handleUpdateActor)
     Hooks.on('deleteCombat', handleDeleteCombat)
@@ -217,6 +218,19 @@ function getCounterValue (data, counterKey) {
     return data.flags[MODULE.ID][counterKey]?.value ?? data.flags[MODULE.ID][counterKey] ?? null
 }
 
+async function addCountersDnd5e (app, html, data) {
+    const sheetType = SHEET_TYPE[app.constructor.name]
+    if (!sheetType.dnd5e) return
+    if (html.find) html = html[0]
+    addCounters(app, html, data)
+}
+
+async function addCountersTidy5e (app, html, data) {
+    const sheetType = SHEET_TYPE[app.constructor.name]
+    if (!sheetType.tidy5e) return
+    addCounters(app, html, data)
+}
+
 /**
  * Add counters to the sheet
  * @param {object} app  The app
@@ -287,7 +301,7 @@ function processCounters (type, counters, entity) {
  */
 function renderCountersTab (sheetType, html) {
     if (sheetType.group || sheetType.item) {
-        const nav = html[0].querySelector('nav.sheet-navigation.tabs')
+        const nav = html.querySelector('nav.sheet-navigation.tabs')
         const navItem = document.createElement('a')
         navItem.classList.add('item')
         navItem.setAttribute('data-tab', 'custom-dnd5e-counters')
@@ -305,7 +319,7 @@ async function insertCounters (sheetType, counters, app, html, data) {
         context.active = ' active'
     }
     const template = await renderTemplate(sheetType.template, context)
-    const element = html[0].querySelector(sheetType.insert.class)
+    const element = html.querySelector(sheetType.insert.class)
     element.insertAdjacentHTML(sheetType.insert.position, template)
     return element.querySelector('#custom-dnd5e-counters')
 }
